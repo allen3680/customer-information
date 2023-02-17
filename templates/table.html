@@ -16,7 +16,7 @@
               <div class="panel-heading">
                 <div class="row">
                   <div class="col col-xs-6">
-                    <h3 class="panel-title">房客資料</h3>
+                    <h3 class="panel-title">房客清單</h3>
                   </div>
                   <div class="col col-xs-6 text-right">
                     <button onclick="window.location.href='create'" type="button" class="btn btn-sm btn-primary btn-create">新增</button>
@@ -39,7 +39,7 @@
                     <tr>
                         <td align="center">
                           <a onclick="window.location.href='edit/'+'{{item[0]}}'" class="btn btn-default"><em class="fa fa-pencil"></em></a>
-                          <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
+                          <!-- <a class="btn btn-danger"><em class="fa fa-trash"></em></a> -->
                         </td>
                         <td class="hidden-xs"> {{item[1]}}</td>
                         <td> {{item[2]}}</td>
@@ -58,10 +58,6 @@
                   <div class="col col-xs-8">
                     <ul class="pagination hidden-xs pull-right">
                       <li><a href="#">1</a></li>
-                      <li><a href="#">2</a></li>
-                      <li><a href="#">3</a></li>
-                      <li><a href="#">4</a></li>
-                      <li><a href="#">5</a></li>
                     </ul>
                     <ul class="pagination visible-xs pull-right">
                         <li><a href="#">«</a></li>

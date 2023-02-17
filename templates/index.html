@@ -44,13 +44,16 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">姓名</label>
-                                    <input class="input--style-4" type="text" name="name" value="{{customerInfo[2]}}">
+                                    <input class="input--style-4" type="text" name="name" value="{{customerInfo[2] if customerInfo[2] else null}}">
+                                </div>
+                                <div class="input-group">
+                                    <input style="display: none" class="input--style-4" type="text" name="serial_no" value="{{customerInfo[0]}}">
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">身分證字號</label>
-                                    <input class="input--style-4" type="text" name="idno" value="{{customerInfo[1]}}">
+                                    <input class="input--style-4" type="text" name="idno" value="{{customerInfo[1] if customerInfo[1] else null}}">
                                 </div>
                             </div>
                         </div>
@@ -59,7 +62,7 @@
                                 <div class="input-group">
                                     <label class="label">入住日期</label>
                                     <div class="input-group-icon">
-                                        <input class="input--style-4 js-datepicker" type="text" name="checkin" value="{{customerInfo[3]}}">
+                                        <input class="input--style-4 js-datepicker" type="text" name="checkin" value="{{customerInfo[3].strftime('%d/%m/%Y') if customerInfo[3] else null}}">
                                         <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
                                     </div>
                                 </div>
@@ -68,7 +71,8 @@
                                 <div class="input-group">
                                     <label class="label">退房日期</label>
                                     <div class="input-group-icon">
-                                        <input class="input--style-4 js-datepicker" type="text" name="checkout" value="{{customerInfo[4]}}">
+                                        <input class="input--style-4 js-datepicker" type="text" name="checkout" value="{{customerInfo[4].strftime('%d/%m/%Y') if customerInfo[4] else null}}">
+                                        <!-- <input class="input--style-4 js-datepicker" type="text" name="checkout" value="{{customerInfo[4].strftime('%d/%m/%Y') if customerInfo[4] else null}}"> -->
                                         <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
                                     </div>
                                 </div>
@@ -78,7 +82,7 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">入住天數</label>
-                                    <input class="input--style-4" type="text" name="days" value="{{customerInfo[5]}}">
+                                    <input class="input--style-4" type="text" name="days" value="{{customerInfo[5] if customerInfo[5] else null}}">
                                 </div>
                             </div>
                               <div class="col-2">
@@ -101,13 +105,13 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">房號</label>
-                                    <input class="input--style-4" type="text" name="room_no" value="{{customerInfo[7]}}">
+                                    <input class="input--style-4" type="text" name="room_no" value="{{customerInfo[7] if customerInfo[7] else null}}">
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">電話</label>
-                                    <input class="input--style-4" type="text" name="phone" value="{{customerInfo[8]}}">
+                                    <input class="input--style-4" type="text" name="phone" value="{{customerInfo[8] if customerInfo[8] else null}}">
                                 </div>
                             </div>
                         </div>
@@ -115,13 +119,13 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">地址</label>
-                                    <input class="input--style-4" type="text" name="address" value="{{customerInfo[9]}}">
+                                    <input class="input--style-4" type="text" name="address" value="{{customerInfo[9] if customerInfo[9] else null}}">
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">備註</label>
-                                    <textarea name="remark" id="remark" class="form-control" style="height: 130px;">{{customerInfo[10]}}</textarea>
+                                    <textarea name="remark" id="remark" class="form-control" style="height: 130px;">{{customerInfo[10] if customerInfo[10] else null}}</textarea>
                                     <!-- <input class="input--style-4" type="text" name="remark" value="{{customerInfo[10]}}"> -->
                                 </div>
                             </div>
