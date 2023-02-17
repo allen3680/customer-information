@@ -38,19 +38,19 @@
         <div class="wrapper wrapper--w680">
             <div class="card card-4">
                 <div class="card-body">
-                    <h2 class="title">Registration Form</h2>
+                    <h2 class="title">房客基本資料</h2>
                     <form method="POST" action="{{url_for('submit')}}">
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">姓名</label>
-                                    <input class="input--style-4" type="text" name="first_name">
+                                    <input class="input--style-4" type="text" name="name" value="{{customerInfo[2]}}">
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">身分證字號</label>
-                                    <input class="input--style-4" type="text" name="last_name">
+                                    <input class="input--style-4" type="text" name="idno" value="{{customerInfo[1]}}">
                                 </div>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                                 <div class="input-group">
                                     <label class="label">入住日期</label>
                                     <div class="input-group-icon">
-                                        <input class="input--style-4 js-datepicker" type="text" name="birthday">
+                                        <input class="input--style-4 js-datepicker" type="text" name="checkin" value="{{customerInfo[3]}}">
                                         <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
                                     </div>
                                 </div>
@@ -68,23 +68,29 @@
                                 <div class="input-group">
                                     <label class="label">退房日期</label>
                                     <div class="input-group-icon">
-                                        <input class="input--style-4 js-datepicker" type="text" name="birthday">
+                                        <input class="input--style-4 js-datepicker" type="text" name="checkout" value="{{customerInfo[4]}}">
                                         <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">入住天數</label>
+                                    <input class="input--style-4" type="text" name="days" value="{{customerInfo[5]}}">
+                                </div>
+                            </div>
                               <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">性別</label>
                                     <div class="p-t-10">
                                         <label class="radio-container m-r-45">Male
-                                            <input type="radio" checked="checked" name="gender">
+                                            <input type="radio" {{ "checked" if customerInfo[6] == "male" }} name="gender" value="male">
                                             <span class="checkmark"></span>
                                         </label>
                                         <label class="radio-container">Female
-                                            <input type="radio" name="gender">
+                                            <input type="radio" {{ "checked" if customerInfo[6] == "female" }} name="gender" value="female">
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
@@ -95,13 +101,13 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">房號</label>
-                                    <input class="input--style-4" type="email" name="email">
+                                    <input class="input--style-4" type="text" name="room_no" value="{{customerInfo[7]}}">
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">電話</label>
-                                    <input class="input--style-4" type="text" name="phone">
+                                    <input class="input--style-4" type="text" name="phone" value="{{customerInfo[8]}}">
                                 </div>
                             </div>
                         </div>
@@ -109,13 +115,14 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">地址</label>
-                                    <input class="input--style-4" type="email" name="email">
+                                    <input class="input--style-4" type="text" name="address" value="{{customerInfo[9]}}">
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">備註</label>
-                                    <input class="input--style-4" type="text" name="phone">
+                                    <textarea name="remark" id="remark" class="form-control" style="height: 130px;">{{customerInfo[10]}}</textarea>
+                                    <!-- <input class="input--style-4" type="text" name="remark" value="{{customerInfo[10]}}"> -->
                                 </div>
                             </div>
                         </div>
@@ -139,7 +146,6 @@
             </div>
         </div>
     </div>
-    <!-- <textarea name="" id="" placeholder="Message" class="form-control" style="height: 130px;"></textarea> -->
     <!-- Jquery JS-->
     <!-- <script src="vendor/jquery/jquery.min.js"></script> -->
     <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
@@ -157,7 +163,7 @@
     <!-- <script src="js/global.js"></script> -->
     <script src="{{ url_for('static', filename='js/global.js') }}"></script>
 
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</body>
 
 </html>
 <!-- end document-->
