@@ -25,7 +25,6 @@ def customerTable():
 def search(condition):
     condition = condition.split("&")
     sqlStuff = "select * from Customer where " + condition[0] + "='" + condition[1] +"'"
-    print(sqlStuff)
     cursor.execute(sqlStuff)
     customerInfo=cursor.fetchall()
 
@@ -52,15 +51,23 @@ def submit():
     checkin = request.values['checkin']
     if(checkin):
         checkin = datetime.strptime(request.values['checkin'], '%d/%m/%Y').strftime('%Y-%m-%d')
+    else:
+        checkin = None
     checkout = request.values['checkout']
     if(checkout):
         checkout = datetime.strptime(request.values['checkout'], '%d/%m/%Y').strftime('%Y-%m-%d')
-    days = request.values['days']
+    else:
+        checkout = None
     gender = request.values['gender']
     room_no = request.values['room_no']
     phone = request.values['phone']
     address = request.values['address']
     remark = request.values['remark']
+
+    if checkin != None and checkout != None:
+        days = (datetime.strptime(request.values['checkout'], '%d/%m/%Y')-datetime.strptime(request.values['checkin'], '%d/%m/%Y')).days
+    else:
+        days = 0
 
     sqlStuff = "INSERT INTO Customer (id, name, checkin, checkout, days, gender, room_no, phone, address, remark) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
 
@@ -69,6 +76,7 @@ def submit():
 
     records = (idno, name, checkin, checkout, days, gender, room_no, phone, address, remark)
     cursor.execute(sqlStuff, records)
+
     mydb.commit()
 
     return redirect("/");

@@ -90,11 +90,11 @@
                                     <label class="label">性別</label>
                                     <div class="p-t-10">
                                         <label class="radio-container m-r-45">Male
-                                            <input type="radio" {{ "checked" if customerInfo[6] == "male" }} name="gender" value="male">
+                                            <input type="radio" {{ '' if customerInfo[6] == "female" else 'checked' }} name="gender" value="male">
                                             <span class="checkmark"></span>
                                         </label>
                                         <label class="radio-container">Female
-                                            <input type="radio" {{ "checked" if customerInfo[6] == "female" }} name="gender" value="female">
+                                            <input type="radio" {{ 'checked' if customerInfo[6] == "female" else '' }} name="gender" value="female">
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
