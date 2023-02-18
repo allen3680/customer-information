@@ -8,11 +8,11 @@
 <script>
   function search() {
     if($("#filter").val()!= null){
-      if(window.location.href.indexOf("search")>=0){
-        window.location.href=$("#filter").val() + '&' + $("#textSearch").val()
-      }else{
-        window.location.href='search/'+$("#filter").val() + '&' + $("#textSearch").val()
-      }
+      // if(window.location.href.indexOf("search")>=0){
+        // window.location.href=$("#filter").val() + '&' + $("#textSearch").val()
+      // }else{
+        window.location.href='/search/'+$("#filter").val() + '&' + $("#textSearch").val() + '/page/0'
+      // }
     }
     else{
         window.location.href='/'
@@ -45,7 +45,7 @@
                 </div>
                     
                     <button onclick="search()" type="button" class="btn btn-sm btn-primary btn-search">搜尋</button>
-                    <button onclick="window.location.href='create'" type="button" class="btn btn-sm btn-primary btn-create">新增</button>
+                    <button onclick="window.location.href='/create'" type="button" class="btn btn-sm btn-primary btn-create">新增</button>
                   </div>
                 </div>
               </div>
@@ -64,7 +64,7 @@
                     {% for item in customerInfo %}
                     <tr>
                         <td align="center">
-                          <a onclick="window.location.href='edit/'+'{{item[0]}}'" class="btn btn-default"><em class="fa fa-pencil"></em></a>
+                          <a onclick="window.location.href='/edit/'+'{{item[0]}}'" class="btn btn-default"><em class="fa fa-pencil"></em></a>
                           <!-- <a class="btn btn-danger"><em class="fa fa-trash"></em></a> -->
                         </td>
                         <td class="hidden-xs"> {{item[1]}}</td>
@@ -82,25 +82,25 @@
                     <span class="pagination_count" style="line-height: 40px;">共{{ count }}筆資料 | {{ pageCount }}頁</span>
                     <ul class="pagination pagination-sm no-margin pull-right">
                       {% if pageOffset == 0 %}
-                    <li><a href="{{  url_for('customerTableByPage',pageOffset=pageOffset) }}">&laquo;</a></li>
+                    <li><a href="{{ pageOffset }}">&laquo;</a></li>
                     {% else %}
-                    <li><a href="{{  url_for('customerTableByPage',pageOffset=pageOffset - 1) }}">&laquo;</a></li>
+                    <li><a href="{{ pageOffset - 1 }}">&laquo;</a></li>
                     {% endif %}
                     {% if pageCount <= 10 %}
                   {% for k in range(pageCount) %}
                     {% if pageOffset == k %}
-                      <li class="active"><a href="{{ url_for('customerTableByPage',pageOffset=k) }}">{{ k }}</a></li>
+                      <li class="active"><a href="{{ k }}">{{ k }}</a></li>
                     {% else %}
-                      <li><a href="{{ url_for('customerTableByPage',pageOffset=k) }}">{{ k }}</a></li>
+                      <li><a href="{{k}}">{{ k }}</a></li>
                     {% endif %}
                   {% endfor %}
                 {% else %}
                   <li><a href="javascript:void(0);">...</a></li>
                 {% endif %}
                 {% if pageOffset == pageCount-1 %}
-                <li><a href="{{ url_for('customerTableByPage',pageOffset=pageOffset) }}">&raquo;</a></li>
+                <li><a href="{{pageOffset}}">&raquo;</a></li>
                 {% else %}
-                <li><a href="{{ url_for('customerTableByPage',pageOffset=pageOffset+1) }}">&raquo;</a></li>
+                <li><a href="{{pageOffset+1}}">&raquo;</a></li>
                 {% endif %}
                     
                   </ul>

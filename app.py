@@ -37,14 +37,26 @@ def customerTableByPage(pageOffset):
 
     return render_template('table.html',customerInfo=customerInfo,pageCount=pageCount,count=count,pageOffset=int(pageOffset))
 
-@app.route("/search/<condition>")
-def search(condition):
+@app.route("/search/<condition>/page/<pageOffset>")
+def search(condition,pageOffset):
     condition = condition.split("&")
-    sqlStuff = "select * from Customer where " + condition[0] + "='" + condition[1] +"'"
+
+    sqlCount = "select count(*) from Customer where " + condition[0] + "='" + condition[1] +"'"
+    cursor.execute(sqlCount)
+    count = cursor.fetchone()[0]
+    pageCount = math.ceil(count/10);
+
+    if pageOffset == None or int(pageOffset) < 0:
+        pageOffset = 0
+    if int(pageOffset) > pageCount:
+        pageOffset = pageCount
+    dataOffset = str(int(pageOffset)*10)
+
+    sqlStuff = "select * from Customer where " + condition[0] + "='" + condition[1] +"' limit " + dataOffset + ",10"
     cursor.execute(sqlStuff)
     customerInfo=cursor.fetchall()
 
-    return render_template('table.html',customerInfo=customerInfo)
+    return render_template('table.html',customerInfo=customerInfo,pageCount=pageCount,count=count,pageOffset=int(pageOffset))
 
 @app.route("/create")
 def create():
