@@ -9,13 +9,23 @@ mydb = mysql.connector.connect(
   host = "127.0.0.1",
   user = "allen",
   password = "Tw746201",
-  database = "CUSTOMER",
+  database = "customer",
   )
 cursor=mydb.cursor()
 
 @app.route("/")
 def customerTable():
     sqlStuff = "select * from Customer"
+    cursor.execute(sqlStuff)
+    customerInfo=cursor.fetchall()
+
+    return render_template('table.html',customerInfo=customerInfo)
+
+@app.route("/search/<condition>")
+def search(condition):
+    condition = condition.split("&")
+    sqlStuff = "select * from Customer where " + condition[0] + "='" + condition[1] +"'"
+    print(sqlStuff)
     cursor.execute(sqlStuff)
     customerInfo=cursor.fetchall()
 

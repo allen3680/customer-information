@@ -5,13 +5,22 @@
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
 
+<script>
+  function search() {
+    if($("#filter").val()!= null){
+      if(window.location.href.indexOf("search")>=0){
+        window.location.href=$("#filter").val() + '&' + $("#textSearch").val()
+      }else{
+        window.location.href='search/'+$("#filter").val() + '&' + $("#textSearch").val()
+      }
+    }
+  }
+</script>
+
 <div class="container">
     <div class="row">
-    
     <p> </p><p> </p>
-    
         <div class="col-md-10 col-md-offset-1">
-
             <div class="panel panel-default panel-table">
               <div class="panel-heading">
                 <div class="row">
@@ -19,6 +28,20 @@
                     <h3 class="panel-title">房客清單</h3>
                   </div>
                   <div class="col col-xs-6 text-right">
+                    <div class="col col-xs-6 text-right">
+                      <input id="textSearch" type="text" name="textSearch" placeholder="搜尋">
+                    </div>
+                  <div class="col col-xs-6 text-right">
+                    <select name="filter" id="filter">
+                        <option disabled="disabled" selected="selected">Choose option</option>
+                        <option value="id">身分證字號</option>
+                        <option value="name">姓名</option>
+                        <option value="phone">電話</option>
+                    </select>
+                    <div class="select-dropdown"></div>
+                </div>
+                    
+                    <button onclick="search()" type="button" class="btn btn-sm btn-primary btn-search">搜尋</button>
                     <button onclick="window.location.href='create'" type="button" class="btn btn-sm btn-primary btn-create">新增</button>
                   </div>
                 </div>
