@@ -1,8 +1,7 @@
-from flask import Flask, render_template, request, redirect # 導入模組Flask
+from flask import Flask, render_template, request, redirect 
 from datetime import datetime
 import math
-app = Flask(__name__)  # 呼叫Flask的固定用法
-
+app = Flask(__name__) 
 
 # Connect MySQL
 import mysql.connector
