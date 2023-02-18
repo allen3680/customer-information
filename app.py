@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect # 導入模組Flask
 from datetime import datetime
+import math
 app = Flask(__name__)  # 呼叫Flask的固定用法
 
 
@@ -15,11 +16,26 @@ cursor=mydb.cursor()
 
 @app.route("/")
 def customerTable():
-    sqlStuff = "select * from Customer"
+      return redirect("/page/0");
+
+@app.route("/page/<pageOffset>")
+def customerTableByPage(pageOffset):
+    sqlCount = "select count(*) from Customer"
+    cursor.execute(sqlCount)
+    count = cursor.fetchone()[0]
+    pageCount = math.ceil(count/10);
+
+    if pageOffset == None or int(pageOffset) < 0:
+        pageOffset = 0
+    if int(pageOffset) > pageCount:
+        pageOffset = pageCount
+    dataOffset = str(int(pageOffset)*10)
+    
+    sqlStuff = "select * from Customer limit " + dataOffset + ",10"
     cursor.execute(sqlStuff)
     customerInfo=cursor.fetchall()
 
-    return render_template('table.html',customerInfo=customerInfo)
+    return render_template('table.html',customerInfo=customerInfo,pageCount=pageCount,count=count,pageOffset=int(pageOffset))
 
 @app.route("/search/<condition>")
 def search(condition):

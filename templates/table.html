@@ -77,21 +77,35 @@
                 </table>
             
               </div>
-              <div class="panel-footer">
-                <div class="row">
-                  <div class="col col-xs-4">Page 1 of 5
-                  </div>
-                  <div class="col col-xs-8">
-                    <ul class="pagination hidden-xs pull-right">
-                      <li><a href="#">1</a></li>
-                    </ul>
-                    <ul class="pagination visible-xs pull-right">
-                        <li><a href="#">«</a></li>
-                        <li><a href="#">»</a></li>
-                    </ul>
-                  </div>
+              <div class="row">
+                <div class="col-lg-12">
+                    <span class="pagination_count" style="line-height: 40px;">共{{ count }}筆資料 | {{ pageCount }}頁</span>
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                      {% if pageOffset == 0 %}
+                    <li><a href="{{  url_for('customerTableByPage',pageOffset=pageOffset) }}">&laquo;</a></li>
+                    {% else %}
+                    <li><a href="{{  url_for('customerTableByPage',pageOffset=pageOffset - 1) }}">&laquo;</a></li>
+                    {% endif %}
+                    {% if pageCount <= 10 %}
+                  {% for k in range(pageCount) %}
+                    {% if pageOffset == k %}
+                      <li class="active"><a href="{{ url_for('customerTableByPage',pageOffset=k) }}">{{ k }}</a></li>
+                    {% else %}
+                      <li><a href="{{ url_for('customerTableByPage',pageOffset=k) }}">{{ k }}</a></li>
+                    {% endif %}
+                  {% endfor %}
+                {% else %}
+                  <li><a href="javascript:void(0);">...</a></li>
+                {% endif %}
+                {% if pageOffset == pageCount-1 %}
+                <li><a href="{{ url_for('customerTableByPage',pageOffset=pageOffset) }}">&raquo;</a></li>
+                {% else %}
+                <li><a href="{{ url_for('customerTableByPage',pageOffset=pageOffset+1) }}">&raquo;</a></li>
+                {% endif %}
+                    
+                  </ul>
                 </div>
-              </div>
+            </div>
             </div>
 
 </div></div></div>
