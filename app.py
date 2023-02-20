@@ -90,18 +90,19 @@ def submit():
     phone = request.values['phone']
     address = request.values['address']
     remark = request.values['remark']
+    price = int(request.values['price'])
 
     if checkin != None and checkout != None:
         days = (datetime.strptime(request.values['checkout'], '%d/%m/%Y')-datetime.strptime(request.values['checkin'], '%d/%m/%Y')).days
     else:
         days = 0
 
-    sqlStuff = "INSERT INTO Customer (id, name, checkin, checkout, days, gender, room_no, phone, address, remark) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+    sqlStuff = "INSERT INTO Customer (id, name, checkin, checkout, days, gender, room_no, phone, address, remark, price) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
 
     if (request.values['serial_no'] != ""):
-        sqlStuff = "UPDATE Customer SET id=%s, name=%s, checkin=%s, checkout=%s, days=%s, gender=%s, room_no=%s, phone=%s, address=%s, remark=%s WHERE serial_no="+request.values['serial_no']
+        sqlStuff = "UPDATE Customer SET id=%s, name=%s, checkin=%s, checkout=%s, days=%s, gender=%s, room_no=%s, phone=%s, address=%s, remark=%s, price=%s WHERE serial_no="+request.values['serial_no']
 
-    records = (idno, name, checkin, checkout, days, gender, room_no, phone, address, remark)
+    records = (idno, name, checkin, checkout, days, gender, room_no, phone, address, remark, price)
     cursor.execute(sqlStuff, records)
 
     mydb.commit()
