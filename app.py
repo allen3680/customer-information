@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect 
+from flask import Flask, render_template, request, redirect, send_file
 from datetime import datetime
 import math
+import pandas as pd
 app = Flask(__name__) 
 
 # Connect MySQL
@@ -108,6 +109,60 @@ def submit():
     mydb.commit()
 
     return redirect("/");
+
+@app.route("/exportCondition")
+def exportCondition():
+    return render_template('export.html')
+
+@app.route("/export", methods=['POST'])
+def export():
+    startDate = request.values['startDate']
+    if(startDate):
+        startDate = datetime.strptime(request.values['startDate'], '%d/%m/%Y').strftime('%Y-%m-%d')
+    else:
+        startDate = "1997-1-1"
+    endDate = request.values['endDate']
+    if(endDate):
+        endDate = datetime.strptime(request.values['endDate'], '%d/%m/%Y').strftime('%Y-%m-%d')
+    else:
+        endDate = datetime.today().strftime('%Y-%m-%d') 
+    sqlStuff = "select id, name, checkin, checkout, days, gender, room_no, phone, address, remark, price from Customer where checkin between '" + startDate + "' and '" + endDate + "'" 
+    cursor.execute(sqlStuff)
+    data=cursor.fetchall()
+
+    idList = []
+    nameList = []
+    checkinList = []
+    checkoutList = []
+    daysList = []
+    genderList = []
+    room_noList = []
+    phoneList = []
+    addressList = []
+    remarkList = []
+    priceList = []
+    for id, name, checkin, checkout, days, gender, room_no, phone, address, remark, price in data:
+        idList.append(id)
+        nameList.append(name)
+        checkinList.append(checkin)
+        checkoutList.append(checkout)
+        daysList.append(days)
+        genderList.append(gender)
+        room_noList.append(room_no)
+        phoneList.append(phone)
+        addressList.append(address)
+        remarkList.append(remark)
+        priceList.append(price)
+
+    dic = {'身分證字號':idList, '名字':nameList, '入住時間':checkinList, '退房時間':checkoutList, '幾晚':daysList, '性別':genderList, '房號':room_noList, '金額':priceList, '電話':phoneList, '地址':addressList, '備註':remarkList}
+    df = pd.DataFrame(dic)
+    df.to_csv('/home/pickle88662213373/customer-information/csv/customer' + startDate + 'to' + endDate + '.csv')
+    return redirect("/download/customer" + startDate + "to" + endDate + ".csv")
+
+@app.route('/download/<file>')
+def downloadFile (file):
+    path = "/home/pickle88662213373/customer-information/csv/"+file
+    return send_file(path, as_attachment=True)
 
 if __name__ == "__main__":  # 如果主程式執行
     app.run()  # 啟動伺服器
