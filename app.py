@@ -19,7 +19,7 @@ def customerTable():
     sqlCount = "select count(*) from Customer"
     cursor.execute(sqlCount)
     count = cursor.fetchone()[0]
-    pageCount = str(math.ceil(count/10));
+    pageCount = str(math.ceil(count/10)-1);
     return redirect("/page/"+pageCount);
 
 @app.route("/page/<pageOffset>")
