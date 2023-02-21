@@ -16,7 +16,11 @@ cursor=mydb.cursor()
 
 @app.route("/")
 def customerTable():
-      return redirect("/page/0");
+    sqlCount = "select count(*) from Customer"
+    cursor.execute(sqlCount)
+    count = cursor.fetchone()[0]
+    pageCount = math.ceil(count/10);
+    return redirect("/page/"+pageCount);
 
 @app.route("/page/<pageOffset>")
 def customerTableByPage(pageOffset):
